@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>یه دعوت کوچولو 💌</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;display:grid;place-items:center;background:linear-gradient(135deg,#ffe1ec,#e8e4ff);font-family:Tahoma,Arial,sans-serif;color:#35283d}
+  .card{width:min(92vw,440px);padding:32px 22px;background:#fff;border-radius:28px;box-shadow:0 18px 55px #6d477733;text-align:center;overflow:hidden}
+  .heart{font-size:48px;margin-bottom:8px}
+  h1{font-size:25px;margin:8px 0 12px}
+  p{font-size:17px;line-height:2;margin:0 0 24px}
+  .buttons{height:62px;display:flex;justify-content:center;align-items:center;gap:18px;position:relative;margin:12px auto 8px;max-width:330px}
+  button{border:0;border-radius:999px;padding:13px 28px;font-size:17px;font-weight:bold;cursor:pointer;box-shadow:0 5px 14px #00000016}
+  #yes{background:#22b573;color:white}
+  #no{background:#f1eff4;color:#514858;transition:left .12s,top .12s}
+  .hidden{display:none}
+  .fields{display:grid;gap:12px;text-align:right;margin-top:18px}
+  label{font-size:14px;font-weight:bold}
+  input{width:100%;padding:13px;border:1px solid #ddd5e7;border-radius:12px;font:inherit;margin-top:6px}
+  .send{width:100%;background:#7c55c7;color:white;margin-top:8px}
+  #result{margin-top:16px;padding:12px;border-radius:12px;background:#f4efff;line-height:1.9}
+  .small{font-size:12px;color:#887b91;margin-top:20px}
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="heart">💌</div>
+  <section id="invite">
+    <h1 id="question">زهرا خانوم، امروز پایه‌ای بریم بیرون؟</h1>
+    <p>یه قرار دونفره و کلی خوش‌گذرونی؛ نظرت چیه؟ 🥰</p>
+    <div class="buttons" id="arena">
+      <button id="yes">آره 😍</button>
+      <button id="no">نه 🙈</button>
+    </div>
+  </section>
+  <section id="details" class="hidden">
+    <div class="heart">🥳</div>
+    <h1>می‌دونستم قبول می‌کنی!</h1>
+    <p>پس بیا جزئیات قرارمون رو مشخص کنیم 💕</p>
+    <div class="fields">
+      <label>📍 کجا بریم؟
+        <input id="place" placeholder="مثلاً کافه یا پارک">
+      </label>
+      <label>🕒 چه ساعتی؟
+        <input id="time" type="time">
+      </label>
+      <label>📅 چه روزی؟
+        <input id="date" type="date">
+      </label>
+      <button class="send" id="finish">ثبت قرار ❤️</button>
+    </div>
+    <div id="result" class="hidden"></div>
+  </section>
+  <div class="small">یه دعوت با کلی عشق ساخته شده ❤️</div>
+</main>
+<script>
+const no=document.getElementById('no'), arena=document.getElementById('arena');
+function dodge(){
+  const a=arena.getBoundingClientRect(), b=no.getBoundingClientRect();
+  const maxX=Math.max(0,a.width-b.width), maxY=12;
+  no.style.position='absolute';
+  no.style.left=(Math.random()*maxX)+'px';
+  no.style.top=((Math.random()*2-1)*maxY)+'px';
+}
+no.addEventListener('mouseenter',dodge);
+no.addEventListener('touchstart',e=>{e.preventDefault();dodge()},{passive:false});
+no.addEventListener('click',e=>{e.preventDefault();dodge()});
+document.getElementById('yes').addEventListener('click',()=>{
+ document.getElementById('invite').classList.add('hidden');
+ document.getElementById('details').classList.remove('hidden');
+});
+document.getElementById('finish').addEventListener('click',()=>{
+ const place=document.getElementById('place').value.trim()||'هنوز مشخص نشده';
+ const time=document.getElementById('time').value||'هنوز مشخص نشده';
+ const date=document.getElementById('date').value||'هنوز مشخص نشده';
+ const r=document.getElementById('result');
+ r.innerHTML='قرارمون ثبت شد! 💖<br>📍 '+place+'<br>🕒 '+time+'<br>📅 '+date;
+ r.classList.remove('hidden');
+});
+</script>
+</body>
+</html>
